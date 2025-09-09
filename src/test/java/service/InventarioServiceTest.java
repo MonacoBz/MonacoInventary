@@ -10,9 +10,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class InventarioServiceTest {
 
     InventarioService service = new InventarioService();
-    @Test
+
     void agregarProducto(){
         ProductoDto p = new ProductoDto("Xbox",20L,new BigDecimal(1250.50));
-            assertEquals(true,service.createProducto(p));
+        ProductoDto p2 = new ProductoDto("Play",20L,new BigDecimal(1250.50));
+            assertEquals(true,service.createProduct(p));
+            assertEquals(true,service.createProduct(p2));
+    }
+
+    @Test
+    void eliminaProducto(){
+        String nombre = "Play";
+
+        assertEquals(true,service.deleteProduct(2));
+        assertEquals(true,service.deleteProduct(3));
+        assertEquals(true,service.deleteProduct(nombre));
     }
 }
