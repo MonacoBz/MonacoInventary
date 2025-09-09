@@ -79,7 +79,7 @@ public class InventarioRepository {
                      Long.valueOf(rs.getInt(1)),
                      rs.getString(2),
                      Long.valueOf(rs.getInt(3)),
-                     new BigDecimal(rs.getDouble(4))
+                     rs.getBigDecimal(4)
              );
              products.add(p);
             }
