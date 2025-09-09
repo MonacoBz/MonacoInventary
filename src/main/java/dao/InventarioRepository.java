@@ -29,7 +29,7 @@ public class InventarioRepository {
 
     public boolean createProduct(ProductoDto producto){
         try{
-            String sqlInsert = "INSERT INTO estudiante(nombre,stock,precio)" +
+            String sqlInsert = "INSERT INTO producto(nombre,stock,precio)" +
                     "VALUES (?,?,?)";
             PreparedStatement ps = connection.prepareStatement(sqlInsert);
             ps.setString(1,producto.nombre());
@@ -38,6 +38,7 @@ public class InventarioRepository {
             ps.executeUpdate();
             return true;
         }catch (SQLException e){
+            System.out.println(e.getMessage());
             return false;
 
         }
