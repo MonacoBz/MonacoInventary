@@ -29,7 +29,7 @@ public class InventarioRepository {
 
     public boolean createProduct(ProductoDto producto){
         try{
-            String sqlInsert = "INSERT INTO estudiante(nombre,stock,precio)" +
+            String sqlInsert = "INSERT INTO producto(nombre,stock,precio)" +
                     "VALUES (?,?,?)";
             PreparedStatement ps = connection.prepareStatement(sqlInsert);
             ps.setString(1,producto.nombre());
@@ -40,6 +40,30 @@ public class InventarioRepository {
         }catch (SQLException e){
             return false;
 
+        }
+    }
+
+    public boolean deleteProduct(String name){
+        String SQLstatement = "DELETE FROM producto WHERE nombre=?";
+        try(PreparedStatement ps = connection.prepareStatement(SQLstatement)){
+            ps.setString(1,name);
+            ps.executeUpdate();
+            return true;
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean deleteProduct(Integer id){
+        String SQLstatement = "DELETE FROM producto WHERE id=?";
+        try(PreparedStatement ps = connection.prepareStatement(SQLstatement)){
+            ps.setInt(1,id);
+            ps.executeUpdate();
+            return true;
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 }
