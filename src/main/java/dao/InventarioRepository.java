@@ -43,4 +43,28 @@ public class InventarioRepository {
 
         }
     }
+
+    public boolean deleteProduct(String name){
+        String SQLstatement = "DELETE FROM producto WHERE nombre=?";
+        try(PreparedStatement ps = connection.prepareStatement(SQLstatement)){
+            ps.setString(1,name);
+            ps.executeUpdate();
+            return true;
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean deleteProduct(Integer id){
+        String SQLstatement = "DELETE FROM producto WHERE id=?";
+        try(PreparedStatement ps = connection.prepareStatement(SQLstatement)){
+            ps.setInt(1,id);
+            ps.executeUpdate();
+            return true;
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }
