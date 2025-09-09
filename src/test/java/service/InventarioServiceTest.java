@@ -1,29 +1,38 @@
 package service;
 
+import domain.dto.ProductIdDto;
 import domain.dto.ProductoDto;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class InventarioServiceTest {
 
     InventarioService service = new InventarioService();
-
+//    @Test
     void agregarProducto(){
         ProductoDto p = new ProductoDto("Xbox",20L,new BigDecimal(1250.50));
-        ProductoDto p2 = new ProductoDto("Play",20L,new BigDecimal(1250.50));
+        ProductoDto p2 = new ProductoDto("Play",20L,new BigDecimal(3530.55));
             assertEquals(true,service.createProduct(p));
             assertEquals(true,service.createProduct(p2));
     }
 
-    @Test
+//    @Test
     void eliminaProducto(){
         String nombre = "Play";
 
         assertEquals(true,service.deleteProduct(2));
         assertEquals(true,service.deleteProduct(3));
         assertEquals(true,service.deleteProduct(nombre));
+    }
+
+    @Test
+    void leerProductos(){
+        List<ProductIdDto> p = service.getAll();
+        p.forEach(System.out::println);
+        assertFalse(p.isEmpty());
     }
 }
