@@ -1,6 +1,6 @@
 package service;
 
-import domain.ProductoDto;
+import domain.dto.ProductoDto;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

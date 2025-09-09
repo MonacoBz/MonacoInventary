@@ -1,7 +1,10 @@
 package service;
 
 import dao.InventarioRepository;
-import domain.ProductoDto;
+import domain.dto.ProductIdDto;
+import domain.dto.ProductoDto;
+
+import java.util.List;
 
 public class InventarioService {
 
@@ -20,6 +23,11 @@ public class InventarioService {
 
     public boolean deleteProduct(Integer id){
         return repository.deleteProduct(id);
+    }
+
+    public List<ProductIdDto> getAll(){
+        List<ProductIdDto> products = repository.findAll();
+        return products == null ? List.of() : products ;
     }
 
 

@@ -1,11 +1,12 @@
 package dao;
 
-import domain.ProductoDto;
+import domain.dto.ProductIdDto;
+import domain.dto.ProductoDto;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.math.BigDecimal;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InventarioRepository {
     private static InventarioRepository repository;
@@ -65,6 +66,27 @@ public class InventarioRepository {
         }catch (SQLException e){
             System.out.println(e.getMessage());
             return false;
+        }
+    }
+
+    public List<ProductIdDto> findAll(){
+        String SQLstatement = "SELECT * FROM producto";
+        try(PreparedStatement ps = connection.prepareStatement(SQLstatement)){
+            ResultSet rs = ps.executeQuery();
+            List<ProductIdDto> products = new ArrayList<>();
+            while(rs.next()){
+             ProductIdDto p = new ProductIdDto(
+                     Long.valueOf(rs.getInt(1)),
+                     rs.getString(2),
+                     Long.valueOf(rs.getInt(3)),
+                     new BigDecimal(rs.getDouble(4))
+             );
+             products.add(p);
+            }
+            return products;
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 }
