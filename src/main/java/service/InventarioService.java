@@ -1,37 +1,55 @@
 package service;
 
-import dao.InventarioRepository;
+import dao.InventarioDao;
+import domain.Producto;
 import domain.dto.ProductIdDto;
 import domain.dto.ProductoDto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class InventarioService {
 
-    InventarioRepository repository;
+    InventarioDao inventarioDao;
     public InventarioService(){
-        repository = InventarioRepository.getInstance();
+        inventarioDao = InventarioDao.getInstance();
     }
 
     public boolean createProduct(ProductoDto p){
-        return repository.createProduct(p);
+        if (!p.nombre().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$"))return false;
+        if (p.precio().compareTo(BigDecimal.ZERO) <= 0)return false;
+        if (p.stock() <= 0)return false;
+
+        Producto producto = new Producto(null,p.nombre(),p.precio(),p.stock());
+        return inventarioDao.createProduct(producto);
     }
 
     public boolean deleteProduct(String name){
-        return repository.deleteProduct(name);
+        return inventarioDao.deleteProduct(name);
     }
 
     public boolean deleteProduct(Integer id){
-        return repository.deleteProduct(id);
+        return inventarioDao.deleteProduct(id);
     }
 
     public List<ProductIdDto> getAll(){
-        List<ProductIdDto> products = repository.findAll();
+        List<ProductIdDto> products = inventarioDao.findAll();
         return products == null ? List.of() : products ;
     }
 
-    public boolean updateProduct(ProductIdDto p){
-        return repository.updateProduct(p);
+    public ProductIdDto getById(int id){
+        return inventarioDao.findById(id);
     }
 
+    public boolean updateProduct(ProductIdDto p){
+        return inventarioDao.updateProduct(p);
+    }
+
+    public ProductIdDto getByNombre(String nombre){
+        return inventarioDao.findByNombre(nombre);
+    }
+
+    public List<ProductIdDto> getByLowStock(){
+        return inventarioDao.getByLowStack();
+    }
 }

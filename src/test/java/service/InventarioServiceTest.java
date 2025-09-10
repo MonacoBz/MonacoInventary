@@ -12,12 +12,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class InventarioServiceTest {
 
     InventarioService service = new InventarioService();
-//    @Test
+    @Test
     void agregarProducto(){
-        ProductoDto p = new ProductoDto("Xbox",20L,new BigDecimal(1250.50));
-        ProductoDto p2 = new ProductoDto("Play",20L,new BigDecimal(3530.55));
-            assertEquals(true,service.createProduct(p));
-            assertEquals(true,service.createProduct(p2));
+        ProductoDto p = new ProductoDto("Pochoco??!!!s",20L,new BigDecimal(1250.50));
+        ProductoDto p2 = new ProductoDto("Maiz",20L,new BigDecimal(-3530.55));
+            assertTrue(service.createProduct(p));
+            assertFalse(service.createProduct(p2));
     }
 
 //    @Test
