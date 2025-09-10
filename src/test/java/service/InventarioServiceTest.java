@@ -14,7 +14,7 @@ class InventarioServiceTest {
     InventarioService service = new InventarioService();
     @Test
     void agregarProducto(){
-        ProductoDto p = new ProductoDto("Pochoclos",20L,new BigDecimal(1250.50));
+        ProductoDto p = new ProductoDto("Pochoco??!!!s",20L,new BigDecimal(1250.50));
         ProductoDto p2 = new ProductoDto("Maiz",20L,new BigDecimal(-3530.55));
             assertTrue(service.createProduct(p));
             assertFalse(service.createProduct(p2));

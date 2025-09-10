@@ -141,4 +141,22 @@ public class InventarioDao {
             return null;
         }
     }
+    public List<ProductIdDto> getByLowStack(){
+        String sqlStatement = "SELECT * FROM producto WHERE stock = ?";
+        List<ProductIdDto> productos = new ArrayList<>();
+        try(PreparedStatement ps = connection.prepareStatement(sqlStatement)){
+            ps.setInt(1,4);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                ProductIdDto p =  new ProductIdDto(rs.getLong(1),
+                        rs.getString(2),
+                        rs.getLong(3),
+                        rs.getBigDecimal(4));
+                productos.add(p);
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return productos;
+    }
 }

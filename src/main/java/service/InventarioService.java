@@ -48,4 +48,8 @@ public class InventarioService {
     public ProductIdDto getByNombre(String nombre){
         return inventarioDao.findByNombre(nombre);
     }
+
+    public List<ProductIdDto> getByLowStock(){
+        return inventarioDao.getByLowStack();
+    }
 }
