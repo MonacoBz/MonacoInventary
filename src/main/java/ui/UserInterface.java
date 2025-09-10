@@ -12,7 +12,7 @@ public class UserInterface {
     private static InventarioService service = new InventarioService();
     private Scanner sc = new Scanner(System.in);
     private final String MENU = "Seleccione una opción:\n0-para ver tabla de productos\n1-buscar producto por nombre\n2-buscar producto por id\n" +
-            "3-Agregar Producto\n4-Actualizar Producto\n10-para salir\nopcion: ";
+            "3-Agregar Producto\n4-Actualizar Producto\n5-Eliminar Prodcuto\n10-para salir\nopcion: ";
     public void menu(){
 
         System.out.println("\t====================Bienvenido a MonacoInventary====================");
@@ -34,6 +34,7 @@ public class UserInterface {
                     }
                     case 3 -> creaProducto();
                     case 4 -> actualizaProducto();
+                    case 5 -> eliminaProducto();
                     default -> System.out.println("Seleccióna una opción valida");
                 };
             }catch (Exception e){
@@ -69,6 +70,7 @@ public class UserInterface {
         System.out.println(respuesta);
 
     }
+
     private void actualizaProducto(){
         System.out.println("Ingrese el nombre del producto o id");
         String busqueda = sc.nextLine();
@@ -85,6 +87,7 @@ public class UserInterface {
         }
         productoActualizacion(p);
     }
+
     private void productoActualizacion(ProductIdDto p){
         System.out.println("Que deseas actualizar del producto :");
         pintaTabla(List.of(p));
@@ -132,5 +135,19 @@ public class UserInterface {
         System.out.println("Precio del producto: ");
         BigDecimal precio = sc.nextBigDecimal();
         return new ProductoDto(nombre,cantidad,precio);
+    }
+
+    private void eliminaProducto(){
+        System.out.println("Ingresa el nombre o id del producto a eliminar : ");
+        String busqueda = sc.nextLine();
+        boolean result;
+        try{
+            int id = Integer.valueOf(busqueda);
+            result = service.deleteProduct(id);
+        }catch (NumberFormatException e){
+            result = service.deleteProduct(busqueda);
+        }
+        String respuesta = result ? "Eliminación Exitosa!!!!!" : "No se pudo eliminar el producto!!!!!";
+        System.out.println(respuesta);
     }
 }
