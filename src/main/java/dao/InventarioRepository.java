@@ -104,4 +104,19 @@ public class InventarioRepository {
             return null;
         }
     }
+
+    public ProductIdDto findByNombre(String nombre){
+        String sqlStatement = "SELECT FROM producto WHERE nombre = ?";
+        try(PreparedStatement ps = connection.prepareStatement(sqlStatement)){
+            ps.setString(1,nombre);
+            ResultSet rs = ps.executeQuery();
+            return new ProductIdDto(rs.getLong(1),
+                    rs.getString(2),
+                    rs.getLong(3),
+                    rs.getBigDecimal(4));
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }

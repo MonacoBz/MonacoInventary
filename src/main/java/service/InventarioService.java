@@ -33,4 +33,7 @@ public class InventarioService {
     public ProductIdDto getById(int id){
         return repository.findById(id);
     }
+    public ProductIdDto getByNombre(String nombre){
+        return repository.findByNombre(nombre);
+    }
 }
