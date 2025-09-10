@@ -30,5 +30,8 @@ public class InventarioService {
         return products == null ? List.of() : products ;
     }
 
+    public boolean updateProduct(ProductIdDto p){
+        return repository.updateProduct(p);
+    }
 
 }

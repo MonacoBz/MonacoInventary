@@ -89,4 +89,18 @@ public class InventarioRepository {
             return null;
         }
     }
+
+    public boolean updateProduct(ProductIdDto p){
+        String sqlStatement = "UPDATE producto SET nombre = ? , stock = ?, precio = ? WHERE id = ?";
+        try(PreparedStatement ps = connection.prepareStatement(sqlStatement)){
+            ps.setString(1,p.nombre());
+            ps.setLong(2,p.stock());
+            ps.setBigDecimal(3,p.precio());
+            ps.setLong(4,p.id());
+            return ps.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }
