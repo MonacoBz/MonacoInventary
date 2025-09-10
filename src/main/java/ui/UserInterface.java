@@ -39,7 +39,7 @@ public class UserInterface {
     private void pintaTabla(List<ProductIdDto> list){
         System.out.println("\t=======================================");
         System.out.println("\t|| id || nombre || producto || stock || precio ||");
-        list.forEach(p -> System.out.printf("\t|| %d || %s || %d || %f || \n",p.id(),p.nombre(),p.stock(),p.precio()));
+        list.forEach(p -> System.out.printf("\t|| %d || %s || %d || %.2f || \n",p.id(),p.nombre(),p.stock(),p.precio()));
         System.out.println("\t=======================================");
 
     }
