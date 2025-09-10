@@ -9,39 +9,39 @@ import java.util.List;
 
 public class InventarioService {
 
-    InventarioDao repository;
+    InventarioDao inventarioDao;
     public InventarioService(){
-        repository = InventarioDao.getInstance();
+        inventarioDao = InventarioDao.getInstance();
     }
 
     public boolean createProduct(ProductoDto p){
         if(p.precio().doubleValue()<=0||p.stock()<=0)return false;
         Producto producto = new Producto(null,p.nombre(),p.precio(),p.stock());
-        return repository.createProduct(producto);
+        return inventarioDao.createProduct(producto);
     }
 
     public boolean deleteProduct(String name){
-        return repository.deleteProduct(name);
+        return inventarioDao.deleteProduct(name);
     }
 
     public boolean deleteProduct(Integer id){
-        return repository.deleteProduct(id);
+        return inventarioDao.deleteProduct(id);
     }
 
     public List<ProductIdDto> getAll(){
-        List<ProductIdDto> products = repository.findAll();
+        List<ProductIdDto> products = inventarioDao.findAll();
         return products == null ? List.of() : products ;
     }
 
     public ProductIdDto getById(int id){
-        return repository.findById(id);
+        return inventarioDao.findById(id);
     }
 
     public boolean updateProduct(ProductIdDto p){
-        return repository.updateProduct(p);
+        return inventarioDao.updateProduct(p);
     }
 
     public ProductIdDto getByNombre(String nombre){
-        return repository.findByNombre(nombre);
+        return inventarioDao.findByNombre(nombre);
     }
 }
