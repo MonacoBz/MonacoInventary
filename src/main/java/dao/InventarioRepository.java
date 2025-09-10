@@ -91,14 +91,18 @@ public class InventarioRepository {
     }
 
     public ProductIdDto findById(int id){
-        String sqlStatement = "SELECT FROM producto where id = ?";
+        String sqlStatement = "SELECT id, nombre, stock, precio FROM producto WHERE id = ?";
         try(PreparedStatement ps = connection.prepareStatement(sqlStatement)){
             ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
-            return new ProductIdDto(rs.getLong(1),
-                    rs.getString(2),
-                    rs.getLong(3),
-                    rs.getBigDecimal(4));
+            ProductIdDto p = null;
+            if(rs.next()) {
+                p = new ProductIdDto(rs.getLong(1),
+                        rs.getString(2),
+                        rs.getLong(3),
+                        rs.getBigDecimal(4));
+            }
+            return p;
         }catch (SQLException e){
             System.out.println(e.getMessage());
             return null;
@@ -120,14 +124,18 @@ public class InventarioRepository {
     }
 
     public ProductIdDto findByNombre(String nombre){
-        String sqlStatement = "SELECT FROM producto WHERE nombre = ?";
+        String sqlStatement = "SELECT id, nombre, stock, precio FROM producto WHERE nombre = ?";
         try(PreparedStatement ps = connection.prepareStatement(sqlStatement)){
             ps.setString(1,nombre);
             ResultSet rs = ps.executeQuery();
-            return new ProductIdDto(rs.getLong(1),
-                    rs.getString(2),
-                    rs.getLong(3),
-                    rs.getBigDecimal(4));
+            ProductIdDto p = null;
+            if(rs.next()) {
+                p =  new ProductIdDto(rs.getLong(1),
+                        rs.getString(2),
+                        rs.getLong(3),
+                        rs.getBigDecimal(4));
+            }
+            return p;
         }catch (SQLException e){
             System.out.println(e.getMessage());
             return null;
