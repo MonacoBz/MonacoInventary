@@ -89,4 +89,19 @@ public class InventarioRepository {
             return null;
         }
     }
+
+    public ProductIdDto findById(int id){
+        String sqlStatement = "SELECT FROM producto where id = ?";
+        try(PreparedStatement ps = connection.prepareStatement(sqlStatement)){
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            return new ProductIdDto(rs.getLong(1),
+                    rs.getString(2),
+                    rs.getLong(3),
+                    rs.getBigDecimal(4));
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }

@@ -30,5 +30,7 @@ public class InventarioService {
         return products == null ? List.of() : products ;
     }
 
-
+    public ProductIdDto getById(int id){
+        return repository.findById(id);
+    }
 }
