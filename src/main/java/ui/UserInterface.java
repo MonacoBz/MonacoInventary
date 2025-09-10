@@ -11,30 +11,23 @@ import java.util.Scanner;
 public class UserInterface {
     private static InventarioService service = new InventarioService();
     private Scanner sc = new Scanner(System.in);
-    private final String MENU = "Seleccione una opción:\n0-para ver tabla de productos\n1-buscar producto por nombre\n2-buscar producto por id\n" +
-            "3-Agregar Producto\n4-Actualizar Producto\n5-Eliminar Prodcuto\n10-para salir\nopcion: ";
+    private final String MENU = "Seleccione una opción:\n0-para ver tabla de productos\n1-buscar producto\n" +
+            "2-Agregar Producto\n3-Actualizar Producto\n4-Eliminar Prodcuto\n10-para salir\nopcion: ";
     public void menu(){
-
-        System.out.println("\t====================Bienvenido a MonacoInventary====================");
         while(true){
             try{
+                System.out.println("\t====================MonacoInventary====================");
                 System.out.println(MENU);
                 int opcion = sc.nextInt();
                 sc.nextLine();
+                System.out.println("\t====================MonacoInventary====================");
                 if(opcion == 10) break;
                 switch (opcion){
                     case 0 -> muestraProdcutos();
-                    case 1 -> {
-                        System.out.println("Ingrese el nombre: ");
-                        muestraProducto(sc.nextLine());
-                    }
-                    case 2 -> {
-                        System.out.println("Ingrese el id: ");
-                        muestraProducto(sc.nextInt());
-                    }
-                    case 3 -> creaProducto();
-                    case 4 -> actualizaProducto();
-                    case 5 -> eliminaProducto();
+                    case 1 -> muestraProducto();
+                    case 2 -> creaProducto();
+                    case 3 -> actualizaProducto();
+                    case 4 -> eliminaProducto();
                     default -> System.out.println("Seleccióna una opción valida");
                 };
             }catch (Exception e){
@@ -52,12 +45,21 @@ public class UserInterface {
 
     }
 
-    private void muestraProducto(String nombre){
-        pintaTabla(List.of(service.getByNombre(nombre)));
-    }
-
-    private void muestraProducto(int id){
-        pintaTabla(List.of(service.getById(id)));
+    private void muestraProducto(){
+        System.out.println("Ingrese el nombre o el id del producto :");
+        String busqueda = sc.nextLine();
+        ProductIdDto p;
+        try{
+            int id = Integer.valueOf(busqueda);
+            p = service.getById(id);
+        }catch (NumberFormatException e){
+            p = service.getByNombre(busqueda);
+        }
+        if(p == null){
+            System.out.println("No se encontro el producto");
+            return;
+        }
+        pintaTabla(List.of(p));
     }
 
     private void muestraProdcutos(){
