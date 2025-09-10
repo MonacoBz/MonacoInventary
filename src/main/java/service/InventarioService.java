@@ -5,6 +5,7 @@ import domain.Producto;
 import domain.dto.ProductIdDto;
 import domain.dto.ProductoDto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class InventarioService {
@@ -15,7 +16,10 @@ public class InventarioService {
     }
 
     public boolean createProduct(ProductoDto p){
-        if(p.precio().doubleValue()<=0||p.stock()<=0)return false;
+        if (!p.nombre().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$"))return false;
+        if (p.precio().compareTo(BigDecimal.ZERO) <= 0)return false;
+        if (p.stock() <= 0)return false;
+
         Producto producto = new Producto(null,p.nombre(),p.precio(),p.stock());
         return inventarioDao.createProduct(producto);
     }
