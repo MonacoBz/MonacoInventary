@@ -15,6 +15,7 @@ public class InventarioService {
     }
 
     public boolean createProduct(ProductoDto p){
+        if(p.precio().doubleValue()<=0||p.stock()<=0)return false;
         Producto producto = new Producto(null,p.nombre(),p.precio(),p.stock());
         return repository.createProduct(producto);
     }
