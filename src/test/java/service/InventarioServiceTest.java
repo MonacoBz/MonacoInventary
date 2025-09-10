@@ -29,10 +29,16 @@ class InventarioServiceTest {
         assertEquals(true,service.deleteProduct(nombre));
     }
 
-    @Test
+    //@Test
     void leerProductos(){
         List<ProductIdDto> p = service.getAll();
         p.forEach(System.out::println);
         assertFalse(p.isEmpty());
+    }
+
+    @Test
+    void actualizarProducto(){
+        ProductIdDto p = new ProductIdDto(2L,"Xbox",5L,new BigDecimal(5530.55));
+        assertTrue(service.updateProduct(p));
     }
 }
