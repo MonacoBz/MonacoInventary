@@ -20,7 +20,6 @@ public class UserInterface {
                 System.out.println(MENU);
                 int opcion = sc.nextInt();
                 sc.nextLine();
-                System.out.println("\t====================MonacoInventary====================");
                 if(opcion == 10) break;
                 switch (opcion){
                     case 0 -> muestraProdcutos();
@@ -63,7 +62,9 @@ public class UserInterface {
     }
 
     private void muestraProdcutos(){
-        pintaTabla(service.getAll());
+        List<ProductIdDto> lista = service.getAll();
+        if(!lista.isEmpty())pintaTabla(lista);
+        else System.out.println("No existen productos!!!");
     }
 
     private void creaProducto(){
