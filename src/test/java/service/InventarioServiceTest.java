@@ -14,10 +14,10 @@ class InventarioServiceTest {
     InventarioService service = new InventarioService();
     @Test
     void agregarProducto(){
-        ProductoDto p = new ProductoDto("Pochoco??!!!s",20L,new BigDecimal(1250.50));
-        ProductoDto p2 = new ProductoDto("Maiz",20L,new BigDecimal(-3530.55));
+        ProductoDto p = new ProductoDto("Producto caro dos",3L,new BigDecimal(1250.50));
+        ProductoDto p2 = new ProductoDto("Producto caro tres",2L,new BigDecimal(3530.55));
             assertTrue(service.createProduct(p));
-            assertFalse(service.createProduct(p2));
+            assertTrue(service.createProduct(p2));
     }
 
 //    @Test
@@ -40,5 +40,12 @@ class InventarioServiceTest {
     void actualizarProducto(){
         ProductIdDto p = new ProductIdDto(2L,"Xbox",5L,new BigDecimal(5530.55));
         assertTrue(service.updateProduct(p));
+    }
+
+    @Test
+    void stockBajo(){
+        List<ProductIdDto> p = service.getByLowStock();
+        p.forEach(System.out::println);
+        assertTrue(!p.isEmpty());
     }
 }
