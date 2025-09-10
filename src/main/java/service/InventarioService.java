@@ -34,9 +34,11 @@ public class InventarioService {
         return repository.findById(id);
     }
 
-
     public boolean updateProduct(ProductIdDto p){
         return repository.updateProduct(p);
     }
 
+    public ProductIdDto getByNombre(String nombre){
+        return repository.findByNombre(nombre);
+    }
 }

@@ -90,7 +90,6 @@ public class InventarioRepository {
         }
     }
 
-
     public ProductIdDto findById(int id){
         String sqlStatement = "SELECT FROM producto where id = ?";
         try(PreparedStatement ps = connection.prepareStatement(sqlStatement)){
@@ -106,8 +105,6 @@ public class InventarioRepository {
         }
     }
 
-
-
     public boolean updateProduct(ProductIdDto p){
         String sqlStatement = "UPDATE producto SET nombre = ? , stock = ?, precio = ? WHERE id = ?";
         try(PreparedStatement ps = connection.prepareStatement(sqlStatement)){
@@ -119,6 +116,21 @@ public class InventarioRepository {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
+        }
+    }
+
+    public ProductIdDto findByNombre(String nombre){
+        String sqlStatement = "SELECT FROM producto WHERE nombre = ?";
+        try(PreparedStatement ps = connection.prepareStatement(sqlStatement)){
+            ps.setString(1,nombre);
+            ResultSet rs = ps.executeQuery();
+            return new ProductIdDto(rs.getLong(1),
+                    rs.getString(2),
+                    rs.getLong(3),
+                    rs.getBigDecimal(4));
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 }
