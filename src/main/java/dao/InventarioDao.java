@@ -142,7 +142,7 @@ public class InventarioDao {
         }
     }
     public List<ProductIdDto> getByLowStack(){
-        String sqlStatement = "SELECT * FROM producto WHERE stock = ?";
+        String sqlStatement = "SELECT * FROM producto WHERE stock <= ?";
         List<ProductIdDto> productos = new ArrayList<>();
         try(PreparedStatement ps = connection.prepareStatement(sqlStatement)){
             ps.setInt(1,4);
