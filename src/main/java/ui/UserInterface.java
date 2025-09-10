@@ -38,7 +38,7 @@ public class UserInterface {
     }
     private void pintaTabla(List<ProductIdDto> list){
         System.out.println("\t=======================================");
-        System.out.println("\t|| id || nombre || producto || stock || precio ||");
+        System.out.println("\t|| id || nombre ||  stock || precio ||");
         list.forEach(p -> System.out.printf("\t|| %d || %s || %d || %.2f || \n",p.id(),p.nombre(),p.stock(),p.precio()));
         System.out.println("\t=======================================");
 
@@ -137,6 +137,10 @@ public class UserInterface {
         Long cantidad = sc.nextLong();
         System.out.println("Precio del producto: ");
         BigDecimal precio = sc.nextBigDecimal();
+        if(precio.doubleValue() <= 0 || cantidad <= 0){
+            System.out.println("Error precio negatio o cantidad negativa");
+            return null;
+        }
         return new ProductoDto(nombre,cantidad,precio);
     }
 

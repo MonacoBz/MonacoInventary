@@ -1,6 +1,7 @@
 package service;
 
-import dao.InventarioRepository;
+import dao.InventarioDao;
+import domain.Producto;
 import domain.dto.ProductIdDto;
 import domain.dto.ProductoDto;
 
@@ -8,13 +9,14 @@ import java.util.List;
 
 public class InventarioService {
 
-    InventarioRepository repository;
+    InventarioDao repository;
     public InventarioService(){
-        repository = InventarioRepository.getInstance();
+        repository = InventarioDao.getInstance();
     }
 
     public boolean createProduct(ProductoDto p){
-        return repository.createProduct(p);
+        Producto producto = new Producto(null,p.nombre(),p.precio(),p.stock());
+        return repository.createProduct(producto);
     }
 
     public boolean deleteProduct(String name){

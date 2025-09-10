@@ -1,41 +1,41 @@
 package dao;
 
+import domain.Producto;
 import domain.dto.ProductIdDto;
 import domain.dto.ProductoDto;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InventarioRepository {
-    private static InventarioRepository repository;
+public class InventarioDao {
+    private static InventarioDao repository;
     Connection connection;
     private final String URL ="jdbc:mysql://localhost:3306/MonacoInventaory";
     private final String USERNAME = "root";
     private final String PASSWORD = "Rocobz16";
-    private InventarioRepository(){
+    private InventarioDao(){
         try{
             connection = DriverManager.getConnection(URL,USERNAME,PASSWORD);
         }catch (SQLException e){
             System.out.println(e);
         }
     }
-    public static InventarioRepository getInstance(){
+    public static InventarioDao getInstance(){
         if(repository == null){
-            repository = new InventarioRepository();
+            repository = new InventarioDao();
         }
         return repository;
     }
 
-    public boolean createProduct(ProductoDto producto){
+    public boolean createProduct(Producto producto){
         try{
             String sqlInsert = "INSERT INTO producto(nombre,stock,precio)" +
                     "VALUES (?,?,?)";
             PreparedStatement ps = connection.prepareStatement(sqlInsert);
-            ps.setString(1,producto.nombre());
-            ps.setLong(2,producto.stock());
-            ps.setBigDecimal(3,producto.precio());
+            ps.setString(1,producto.getNombre());
+            ps.setLong(2,producto.getStock());
+            ps.setBigDecimal(3,producto.getPrecio());
             ps.executeUpdate();
             return true;
         }catch (SQLException e){
