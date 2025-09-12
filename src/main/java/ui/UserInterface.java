@@ -12,12 +12,14 @@ public class UserInterface {
     private static InventarioService service = new InventarioService();
     private Scanner sc = new Scanner(System.in);
     private final String MENU = "Seleccione una opción:\n0-para ver tabla de productos\n1-buscar producto\n" +
-            "2-Agregar Producto\n3-Actualizar Producto\n4-Eliminar Prodcuto\n10-para salir\nopcion: ";
+            "2-Agregar Producto\n3-Actualizar Producto\n4-Eliminar Prodcuto\n10-para salir";
     public void menu(){
         while(true){
             try{
                 System.out.println("\t====================MonacoInventary====================");
                 System.out.println(MENU);
+                if(existeStockBajo())System.out.println("Tienes Productos con Stock bajo!!!!!  presiona 5 para verlos\nopcion: ");
+                else System.out.println("opcion:");
                 int opcion = sc.nextInt();
                 sc.nextLine();
                 if(opcion == 10) break;
@@ -27,6 +29,7 @@ public class UserInterface {
                     case 2 -> creaProducto();
                     case 3 -> actualizaProducto();
                     case 4 -> eliminaProducto();
+                    case 5 -> stockBajo();
                     default -> System.out.println("Seleccióna una opción valida");
                 };
             }catch (Exception e){
@@ -36,6 +39,18 @@ public class UserInterface {
         }
         System.out.println("Hasta luego ;:D");
     }
+    private boolean existeStockBajo(){ return !service.getByLowStock().isEmpty(); }
+
+    private void stockBajo(){
+        List<ProductIdDto> stock = service.getByLowStock();
+        if(!stock.isEmpty()){
+            System.out.println("\t--------------------------------------------------\n\tEstos productos tienen stock bajo!!!!");
+            pintaTabla(stock);
+            System.out.println("\t--------------------------------------------------");
+        }
+        else System.out.println("Tu stock esta bien!!");
+    }
+
     private void pintaTabla(List<ProductIdDto> list){
         System.out.println("\t=======================================");
         System.out.println("\t|| id || nombre ||  stock || precio ||");
@@ -96,7 +111,7 @@ public class UserInterface {
         BigDecimal precio = p.precio();
         while(true){
             try {
-                System.out.println("Ingrese 1-Actualizar nombre\n2-Actualizar stock\n3-Actualizar precio\n4-Confirmar\n0 para cancelar");
+                System.out.println("Ingrese \n1-Actualizar nombre\n2-Actualizar stock\n3-Actualizar precio\n4-Confirmar\n0 para cancelar");
                 int opcion = sc.nextInt();
                 sc.nextLine();
                 if (opcion == 0) return;

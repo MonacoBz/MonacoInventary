@@ -71,9 +71,9 @@ public class InventarioDao {
 
     public List<ProductIdDto> findAll(){
         String SQLstatement = "SELECT * FROM producto";
+        List<ProductIdDto> products = new ArrayList<>();
         try(PreparedStatement ps = connection.prepareStatement(SQLstatement)){
             ResultSet rs = ps.executeQuery();
-            List<ProductIdDto> products = new ArrayList<>();
             while(rs.next()){
              ProductIdDto p = new ProductIdDto(
                      Long.valueOf(rs.getInt(1)),
@@ -83,11 +83,10 @@ public class InventarioDao {
              );
              products.add(p);
             }
-            return products;
         }catch (SQLException e){
             System.out.println(e.getMessage());
-            return List.of();
         }
+        return products;
     }
 
     public ProductIdDto findById(int id){
