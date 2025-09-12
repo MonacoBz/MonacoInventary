@@ -38,6 +38,7 @@ public class InventarioService {
     }
 
     public boolean updateProduct(ProductIdDto p){
+        if(Validacion.validarProducto(p))return false;
         return inventarioDao.updateProduct(p);
     }
 

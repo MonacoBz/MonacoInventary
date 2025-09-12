@@ -118,7 +118,7 @@ public class UserInterface {
                 }
                 ;
             } catch (Exception e) {
-                System.out.println("Entrada no valida");
+                System.out.println("Entrada no valida, porfavor agregue una entrada valida");
             }
         }
         String resultado = service.updateProduct(new ProductIdDto(p.id(),nombre,stock,precio)) ? "Actualización exitosa!!!!":
