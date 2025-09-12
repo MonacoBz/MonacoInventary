@@ -22,11 +22,11 @@ public class InventarioService {
     }
 
     public boolean deleteProduct(String name){
-        return inventarioDao.deleteProduct(name);
+        return inventarioDao.findByNombre(name) != null && inventarioDao.deleteProduct(name);
     }
 
     public boolean deleteProduct(Integer id){
-        return inventarioDao.deleteProduct(id);
+        return inventarioDao.findById(id) != null && inventarioDao.deleteProduct(id);
     }
 
     public List<ProductIdDto> getAll(){
