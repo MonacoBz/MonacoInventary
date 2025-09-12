@@ -15,6 +15,12 @@ public class Producto {
         this.stock = stock;
     }
 
+    public Producto(String nombre, BigDecimal precio, Long stock){
+        this.nombre = nombre;
+        this.precio = precio;
+        this.stock = stock;
+    }
+
     public Long getId() {
         return id;
     }

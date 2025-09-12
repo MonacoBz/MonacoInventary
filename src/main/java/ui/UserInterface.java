@@ -54,11 +54,8 @@ public class UserInterface {
         }catch (NumberFormatException e){
             p = service.getByNombre(busqueda);
         }
-        if(p == null){
-            System.out.println("No se encontro el producto");
-            return;
-        }
-        pintaTabla(List.of(p));
+        if(p == null)System.out.println("No se encontro el producto");
+        else pintaTabla(List.of(p));
     }
 
     private void muestraProdcutos(){
@@ -69,9 +66,9 @@ public class UserInterface {
 
     private void creaProducto(){
         String respuesta;
-        respuesta = service.createProduct(creaProdcutoDto()) ? "Creado Exitosamente" : "No se puedo crear el producto";
+        ProductoDto p = creaProdcutoDto();
+        respuesta = service.createProduct(p) ? "Creado Exitosamente" : "No se puedo crear el producto " + p;
         System.out.println(respuesta);
-
     }
 
     private void actualizaProducto(){
@@ -137,10 +134,6 @@ public class UserInterface {
         Long cantidad = sc.nextLong();
         System.out.println("Precio del producto: ");
         BigDecimal precio = sc.nextBigDecimal();
-        if(precio.doubleValue() <= 0 || cantidad <= 0){
-            System.out.println("Error precio negatio o cantidad negativa");
-            return null;
-        }
         return new ProductoDto(nombre,cantidad,precio);
     }
 

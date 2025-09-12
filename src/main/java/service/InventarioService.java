@@ -2,6 +2,7 @@ package service;
 
 import dao.InventarioDao;
 import domain.Producto;
+import domain.Validacion;
 import domain.dto.ProductIdDto;
 import domain.dto.ProductoDto;
 
@@ -16,12 +17,8 @@ public class InventarioService {
     }
 
     public boolean createProduct(ProductoDto p){
-        if (!p.nombre().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$"))return false;
-        if (p.precio().compareTo(BigDecimal.ZERO) <= 0)return false;
-        if (p.stock() <= 0)return false;
-
-        Producto producto = new Producto(null,p.nombre(),p.precio(),p.stock());
-        return inventarioDao.createProduct(producto);
+        if(Validacion.validarProducto(p)) return false;
+        return inventarioDao.createProduct(new Producto(p.nombre(),p.precio(),p.stock()));
     }
 
     public boolean deleteProduct(String name){
@@ -33,8 +30,7 @@ public class InventarioService {
     }
 
     public List<ProductIdDto> getAll(){
-        List<ProductIdDto> products = inventarioDao.findAll();
-        return products == null ? List.of() : products ;
+        return inventarioDao.findAll();
     }
 
     public ProductIdDto getById(int id){

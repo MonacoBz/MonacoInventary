@@ -86,7 +86,7 @@ public class InventarioDao {
             return products;
         }catch (SQLException e){
             System.out.println(e.getMessage());
-            return null;
+            return List.of();
         }
     }
 
