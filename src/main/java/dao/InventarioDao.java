@@ -88,17 +88,18 @@ public class InventarioDao {
         return products;
     }
 
-    public ProductIdDto findById(int id){
+    public Producto findById(int id){
         String sqlStatement = "SELECT id, nombre, stock, precio FROM producto WHERE id = ?";
         try(PreparedStatement ps = connection.prepareStatement(sqlStatement)){
             ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
-            ProductIdDto p = null;
+            Producto p = null;
             if(rs.next()) {
-                p = new ProductIdDto(rs.getLong(1),
+                p = new Producto(rs.getLong(1),
                         rs.getString(2),
-                        rs.getLong(3),
-                        rs.getBigDecimal(4));
+                        rs.getBigDecimal(4),
+                        rs.getLong(3)
+                        );
             }
             return p;
         }catch (SQLException e){
@@ -121,17 +122,18 @@ public class InventarioDao {
         }
     }
 
-    public ProductIdDto findByNombre(String nombre){
+    public Producto findByNombre(String nombre){
         String sqlStatement = "SELECT id, nombre, stock, precio FROM producto WHERE nombre = ?";
         try(PreparedStatement ps = connection.prepareStatement(sqlStatement)){
             ps.setString(1,nombre);
             ResultSet rs = ps.executeQuery();
-            ProductIdDto p = null;
+            Producto p = null;
             if(rs.next()) {
-                p =  new ProductIdDto(rs.getLong(1),
+                p =  new Producto(rs.getLong(1),
                         rs.getString(2),
-                        rs.getLong(3),
-                        rs.getBigDecimal(4));
+                        rs.getBigDecimal(4),
+                        rs.getLong(3)
+                        );
             }
             return p;
         }catch (SQLException e){

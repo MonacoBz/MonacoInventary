@@ -40,7 +40,8 @@ public class InventarioService {
 
     public ProductIdDto getById(int id){
         if(Validacion.validarId(id)) return null;
-        return inventarioDao.findById(id);
+        var producto =  inventarioDao.findById(id);
+        return mapper.toProductId(producto);
     }
 
     public boolean updateProduct(ProductIdDto p){
@@ -51,7 +52,8 @@ public class InventarioService {
 
     public ProductIdDto getByNombre(String nombre){
         if(Validacion.validarNombre(nombre))return null;
-        return inventarioDao.findByNombre(nombre);
+        var producto =  inventarioDao.findByNombre(nombre);
+        return mapper.toProductId(producto);
     }
 
     public List<ProductIdDto> getByLowStock(){
