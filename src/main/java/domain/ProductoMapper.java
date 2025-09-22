@@ -12,7 +12,7 @@ public class ProductoMapper {
     }
 
     public Producto toProduct (ProductIdDto dto){
-        return new Producto(dto.nombre()
+        return new Producto(dto.id(),dto.nombre()
         ,dto.precio()
         ,dto.stock());
     }

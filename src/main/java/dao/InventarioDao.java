@@ -1,7 +1,6 @@
 package dao;
 
 import domain.Producto;
-import dto.ProductIdDto;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -67,7 +66,7 @@ public class InventarioDao {
             return false;
         }
     }
-    //ProductIdDto
+
     public List<Producto> findAll(){
         String SQLstatement = "SELECT * FROM producto";
         List<Producto> products = new ArrayList<>();
@@ -108,13 +107,13 @@ public class InventarioDao {
         }
     }
 
-    public boolean updateProduct(ProductIdDto p){
+    public boolean updateProduct(Producto p){
         String sqlStatement = "UPDATE producto SET nombre = ? , stock = ?, precio = ? WHERE id = ?";
         try(PreparedStatement ps = connection.prepareStatement(sqlStatement)){
-            ps.setString(1,p.nombre());
-            ps.setLong(2,p.stock());
-            ps.setBigDecimal(3,p.precio());
-            ps.setLong(4,p.id());
+            ps.setString(1,p.getNombre());
+            ps.setLong(2,p.getStock());
+            ps.setBigDecimal(3,p.getPrecio());
+            ps.setLong(4,p.getId());
             return ps.executeUpdate() == 1;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -141,17 +140,18 @@ public class InventarioDao {
             return null;
         }
     }
-    public List<ProductIdDto> getByLowStack(){
+    public List<Producto> getByLowStack(){
         String sqlStatement = "SELECT * FROM producto WHERE stock <= ?";
-        List<ProductIdDto> productos = new ArrayList<>();
+        List<Producto> productos = new ArrayList<>();
         try(PreparedStatement ps = connection.prepareStatement(sqlStatement)){
             ps.setInt(1,4);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                ProductIdDto p =  new ProductIdDto(rs.getLong(1),
+                Producto p =  new Producto(rs.getLong(1),
                         rs.getString(2),
-                        rs.getLong(3),
-                        rs.getBigDecimal(4));
+                        rs.getBigDecimal(4),
+                        rs.getLong(3)
+                        );
                 productos.add(p);
             }
         }catch (SQLException e){

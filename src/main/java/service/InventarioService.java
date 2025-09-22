@@ -46,8 +46,7 @@ public class InventarioService {
 
     public boolean updateProduct(ProductIdDto p){
         if(Validacion.validarProducto(p))return false;
-
-        return inventarioDao.updateProduct(p);
+        return inventarioDao.updateProduct(mapper.toProduct(p));
     }
 
     public ProductIdDto getByNombre(String nombre){
@@ -57,6 +56,9 @@ public class InventarioService {
     }
 
     public List<ProductIdDto> getByLowStock(){
-        return inventarioDao.getByLowStack();
+        return inventarioDao.getByLowStack()
+                .stream()
+                .map(mapper::toProductId)
+                .toList();
     }
 }
