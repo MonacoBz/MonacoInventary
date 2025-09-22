@@ -1,8 +1,7 @@
 package service;
 
-import domain.dto.ProductIdDto;
-import domain.dto.ProductoDto;
-import org.junit.jupiter.api.BeforeAll;
+import dto.ProductIdDto;
+import dto.ProductoDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

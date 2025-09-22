@@ -1,7 +1,7 @@
 package domain;
 
-import domain.dto.ProductIdDto;
-import domain.dto.ProductoDto;
+import dto.ProductIdDto;
+import dto.ProductoDto;
 
 import java.math.BigDecimal;
 

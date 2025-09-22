@@ -2,18 +2,20 @@ package service;
 
 import dao.InventarioDao;
 import domain.Producto;
+import domain.ProductoMapper;
 import domain.Validacion;
-import domain.dto.ProductIdDto;
-import domain.dto.ProductoDto;
+import dto.ProductIdDto;
+import dto.ProductoDto;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class InventarioService {
 
     InventarioDao inventarioDao;
+    private final ProductoMapper mapper;
     public InventarioService(){
         inventarioDao = InventarioDao.getInstance();
+        mapper = new ProductoMapper();
     }
 
     public boolean createProduct(ProductoDto p){
@@ -30,7 +32,10 @@ public class InventarioService {
     }
 
     public List<ProductIdDto> getAll(){
-        return inventarioDao.findAll();
+        return inventarioDao.findAll().
+                stream()
+                .map(mapper::toProductId)
+                .toList();
     }
 
     public ProductIdDto getById(int id){

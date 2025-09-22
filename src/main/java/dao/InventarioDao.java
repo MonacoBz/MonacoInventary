@@ -1,8 +1,7 @@
 package dao;
 
 import domain.Producto;
-import domain.dto.ProductIdDto;
-import domain.dto.ProductoDto;
+import dto.ProductIdDto;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -68,18 +67,18 @@ public class InventarioDao {
             return false;
         }
     }
-
-    public List<ProductIdDto> findAll(){
+    //ProductIdDto
+    public List<Producto> findAll(){
         String SQLstatement = "SELECT * FROM producto";
-        List<ProductIdDto> products = new ArrayList<>();
+        List<Producto> products = new ArrayList<>();
         try(PreparedStatement ps = connection.prepareStatement(SQLstatement)){
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-             ProductIdDto p = new ProductIdDto(
+             Producto p = new Producto(
                      Long.valueOf(rs.getInt(1)),
                      rs.getString(2),
-                     Long.valueOf(rs.getInt(3)),
-                     rs.getBigDecimal(4)
+                     rs.getBigDecimal(4),
+                     Long.valueOf(rs.getInt(3))
              );
              products.add(p);
             }

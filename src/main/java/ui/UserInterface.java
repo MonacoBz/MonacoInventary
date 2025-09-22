@@ -1,7 +1,7 @@
 package ui;
 
-import domain.dto.ProductIdDto;
-import domain.dto.ProductoDto;
+import dto.ProductIdDto;
+import dto.ProductoDto;
 import service.InventarioService;
 
 import java.math.BigDecimal;
