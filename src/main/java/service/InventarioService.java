@@ -34,15 +34,18 @@ public class InventarioService {
     }
 
     public ProductIdDto getById(int id){
+        if(Validacion.validarId(id)) return null;
         return inventarioDao.findById(id);
     }
 
     public boolean updateProduct(ProductIdDto p){
         if(Validacion.validarProducto(p))return false;
+
         return inventarioDao.updateProduct(p);
     }
 
     public ProductIdDto getByNombre(String nombre){
+        if(Validacion.validarNombre(nombre))return null;
         return inventarioDao.findByNombre(nombre);
     }
 

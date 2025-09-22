@@ -7,10 +7,12 @@ import java.math.BigDecimal;
 
 public class Validacion {
 
-    private static boolean validarNombre(String nombre){
+    public static boolean validarNombre(String nombre){
         return !nombre.matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ\\s]+$");
     }
-
+    public static boolean validarId(int id){
+        return id < 0;
+    }
     private static boolean validarPrecio(BigDecimal precio){
         return precio.compareTo(BigDecimal.ZERO) <= 0;
     }

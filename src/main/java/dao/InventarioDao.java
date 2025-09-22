@@ -39,7 +39,7 @@ public class InventarioDao {
             ps.executeUpdate();
             return true;
         }catch (SQLException e){
-            System.out.println(e.getMessage());
+            System.out.println("Ya existe el producto!!!!");
             return false;
 
         }
