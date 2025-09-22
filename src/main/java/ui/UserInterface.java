@@ -162,7 +162,7 @@ public class UserInterface {
         }catch (NumberFormatException e){
             result = service.deleteProduct(busqueda);
         }
-        String respuesta = result ? "Eliminación Exitosa!!!!!" : "No se pudo eliminar el producto!!!!!";
+        String respuesta = result ? "Eliminación Exitosa!!!!!" : "No se pudo eliminar el producto, revice el nombre o el id, si estan bien, entonces este no existe";
         System.out.println(respuesta);
     }
 }

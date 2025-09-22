@@ -24,10 +24,12 @@ public class InventarioService {
     }
 
     public boolean deleteProduct(String name){
+        if(Validacion.validarNombre(name))return false;
         return inventarioDao.findByNombre(name) != null && inventarioDao.deleteProduct(name);
     }
 
     public boolean deleteProduct(Integer id){
+        if(Validacion.validarId(id))return false;
         return inventarioDao.findById(id) != null && inventarioDao.deleteProduct(id);
     }
 
